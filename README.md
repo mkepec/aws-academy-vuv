@@ -18,7 +18,7 @@ Dobrodošli u službeni repozitorij AWS Akademije na Veleučilištu u Virovitici
 | Mapa | Sadržaj |
 |------|---------|
 | `dokumentacija/` | Opće informacije, smjernice i upute za rad u sklopu AWS Akademije (npr. pravila, pristup labu, uloge nastavnika) |
-| `vodici/` | [Tehnički korak-po-korak vodiči](vodici/README.md) za rad s AWS servisima (npr. pokretanje EC2 instance, povezivanje s PuTTY-em) |
+| `upute/` | [Tehnički korak-po-korak vodiči](upute/README.md) za rad s AWS servisima (npr. pokretanje EC2 instance, povezivanje s PuTTY-em) |
 | `materijali/` | Prezentacije, logotipi, vizualni i pomoćni obrazovni sadržaji |
 | `poveznice/` | Popis korisnih linkova na službenu AWS dokumentaciju, portale i alate |
 
@@ -36,7 +36,7 @@ Dobrodošli u službeni repozitorij AWS Akademije na Veleučilištu u Virovitici
 
 Za pregled svih dostupnih vodiča, posjetite:
 
-👉 [`vodici/README.md`](vodici/README.md)
+👉 [`upute/README.md`](upute/README.md)
 
 ## 🧩 Kako koristiti repozitorij?
 
