@@ -2,73 +2,82 @@
 
 ## Opis
 
-Ove upute služe kao praktičan vodič za studente i nastavnike Veleučilišta koji koriste **AWS Academy Learner Lab** za pokretanje vlastitih EC2 instanci. Instanca se koristi kao virtualni poslužitelj u oblaku te može služiti kao zamjena za lokalne virtualne strojeve u laboratorijskim vježbama ili edukacijskim projektima.
+Ove upute namijenjene su studentima i nastavnicima Veleučilišta koji koriste **AWS Academy Learner Lab** za pokretanje vlastite EC2 instance. Pokrenuta instanca može se koristiti za testiranje, rad u terminalu i buduće laboratorijske vježbe.
 
-> **Napomena:** Ova instanca pokreće se bez dodatnih konfiguracija ili softverskih instalacija. Cilj je imati čistu, aktivnu instancu spremnu za daljnji rad.
+## 1. Pristup AWS konzoli
 
-## Pristup AWS konzoli
+Pristupite AWS konzoli putem Learner Laba. Ako vam je ovo prvi put, slijedite [upute za pristup](./opcenito/learner-lab-pregled-i-pristup.md).
 
-Prije početka slijedite upute iz [uputa za AWS Academy Learner Lab](./opcenito/learner-lab-uputa.md) kako biste pristupili AWS konzoli s privremenim računom.
+> **Preporučena regija:** N. Virginia (`us-east-1`) ako nije već unaprijed postavljena.
 
-> **Regija:** Preporučena regija je **N. Virginia (us-east-1)** ako nije unaprijed zadana.
+## 2. Pokretanje nove EC2 instance
 
-## Koraci za pokretanje EC2 instance
+### Koraci:
 
-### 1. Otvorite EC2 servis
+1. U AWS konzoli kliknite **Services**, zatim **EC2**.
+2. Na EC2 nadzornoj ploči kliknite **Launch instance**.
+3. Unesite naziv instance, npr. `vuv-lab-ec2-1`.
 
-* U AWS konzoli kliknite **Services** i zatim **EC2**.
+> **Napomena:** Možete odabrati bilo koji naziv koji će vam kasnije pomoći da prepoznate instancu. Preporučuje se koristiti jasan i strukturiran naziv, npr. uključujući skraćenicu ustanove (npr. `vuv`), vrstu instance (`lab`, `web`, `test`), te broj ili godinu.
 
-### 2. Pokrenite instancu
+4. U dijelu **Application and OS Images (AMI)**:
 
-* Kliknite **Launch instance**.
+   * Ostavite zadani izbor: **Amazon Linux 2023 AMI** (oznaka "Free tier eligible" se također prikazuje).
 
-### 3. Osnovne postavke
+> **Napomena:** Amazon Linux koristi korisničko ime `ec2-user`. To će vam trebati kod povezivanja putem SSH-a.
 
-* **Name**: Unesite ime instance (npr. `MojaEC2Instanca`).
-* **AMI**: Odaberite **Amazon Linux 2023 AMI (x86\_64)**.
-* **Instance type**: Ostavite zadani `t2.micro`.
+5. U dijelu **Instance type**:
 
-### 4. Ključ za pristup
+   * Ostavite zadani tip: `t2.micro` (Free tier eligible).
 
-* Pod **Key pair (login)** odaberite postojeći ključ ili kreirajte novi (npr. `student-key`).
-* Preuzmite `.pem` (za Mac/Linux) ili `.ppk` (za Windows PuTTY) datoteku i pohranite je sigurno.
+6. U dijelu **Key pair (login)**:
 
-### 5. Mrežne postavke
+   * Ako vam je ovo prva instanca, odaberite **Create new key pair**.
 
-* Kliknite **Edit** pored **Network settings**.
-* Ostavite zadani VPC i subnet.
-* Provjerite da je **Auto-assign public IP** omogućeno.
-* U dijelu **Firewall (security group)**:
+     * Unesite naziv (npr. `student-key`).
+     * Ostavite zadani **Key pair type**: `RSA`.
+     * Odaberite **Private key file format**: `ppk` ako koristite Windows računala u laboratoriju, jer se koristi alat PuTTY.
+       Ako ostavite zadani format `pem`, kasnije možete pomoću alata **PuTTYgen** pretvoriti `.pem` datoteku u `.ppk` format.
+     * Kliknite **Create key pair** i spremite datoteku na sigurno mjesto – potrebna je za povezivanje na instancu.
 
-  * Odaberite **Create security group**.
-  * Dodajte pravilo za SSH:
+> **Važno:** Ako u budućim vježbama budete koristili drugo računalo (npr. u laboratoriju), a nemate spremljen ključ, nećete se moći povezati na već pokrenutu instancu i morat ćete pokrenuti novu.
+> Preporučuje se pohraniti `.pem` ili `.ppk` datoteku na trajno dostupno i sigurno mjesto, npr. u vlastiti **OneDrive** račun povezan s vašim VUV Office 365 računom.
 
-    * **Type**: SSH
-    * **Port range**: 22
-    * **Source**: Anywhere (0.0.0.0/0)
+* Ako već imate ključ koji ste ranije preuzeli, odaberite **Choose existing key pair** i izaberite ga s popisa.
 
-> **Napomena:** Pravilo pristupa iz bilo koje mreže koristi se samo u edukacijske svrhe.
+7. U dijelu **Network settings**:
 
-### 6. Pohrana
+   * Odaberite opciju **Create security group**.
+   * Unesite naziv grupe, npr. `vuv-lab-access`, te kratak opis (npr. "Sigurnosna pravila za laboratorijske instance").
+   * Provjerite da je dodano pravilo za **SSH** (port 22, Anywhere – 0.0.0.0/0).
 
-* Ostavite zadani volumen (8 GiB).
+> **Napomena:** Kreiranjem vlastite sigurnosne grupe olakšat ćete kasnije dodavanje dodatnih pravila, npr. otvaranje porta 80 za web server. Sve sigurnosne grupe možete pronaći i uređivati putem **EC2 > Network & Security > Security Groups**.\*\* Ove vrijednosti su zadane u Learner Lab okruženju i dovoljne za potrebe rada u laboratoriju.
 
-### 7. Pokrenite instancu
+8. U dijelu **Configure storage**:
 
-* Kliknite **Launch instance**.
-* Nakon pokretanja, kliknite **View all instances**.
+   * Ostavite zadanu vrijednost od **8 GiB**.
 
-## Provjera statusa
+9. Kliknite **Launch instance**.
 
-* Provjerite da je instanca u stanju `Running`.
-* U stupcu **Status checks** mora pisati `2/2 checks passed`.
-* Zabilježite **Public IPv4 address** – trebat će vam za povezivanje.
+10. Nakon potvrde da je instanca uspješno pokrenuta, kliknite **View all instances**.
 
-## Završetak rada
+## 3. Provjera statusa instance
 
-* Ako ne nastavljate odmah s radom, preporučuje se odabrati **Instance state > Stop instance**.
-* Nakon završetka rada u konzoli, ne zaboravite kliknuti **End Lab** u AWS Academy sučelju kako biste zaustavili rad resursa i sačuvali budžet.
+* Na popisu instanci provjerite da vaša instanca ima status **Running**.
+* U stupcu **Status checks** pričekajte oznaku **2/2 checks passed**.
+* Zabilježite **Public IPv4 address** – trebat će vam za povezivanje u sljedećim koracima.
+
+## 4. Upravljanje instancom
+
+U prikazu instance kliknite gumb **Instance state** gdje možete:
+
+* **Start** – pokrenuti instancu ako je zaustavljena
+* **Stop** – privremeno zaustaviti instancu (resursi se ne brišu)
+* **Terminate** – trajno obrisati instancu i sve njene podatke
+
+> **Preporuka:** Kada završite s radom, koristite **Stop** ako ćete se ponovno povezivati kasnije. Koristite **Terminate** samo kada vam instanca više neće trebati.
 
 ---
 
-Ove upute su osmišljene za brzu orijentaciju i početak rada s EC2 servisom. Za detaljnije laboratorijske vježbe koristit će se strukturirani predložak s ciljevima, zadacima i evaluacijom.
+Za povezivanje na EC2 instancu korištenjem SSH-a na Windows, macOS i Linux sustavima, pogledajte:
+👉 [Upute za povezivanje na EC2 instancu putem SSH-a](./ec2-spajanje-ssh.md)
