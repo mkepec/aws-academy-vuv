@@ -5,7 +5,8 @@ Ovdje se nalaze tehničke upute podijeljene prema kategorijama AWS servisa.
 ---
 ## 📘 Općenito
 
-- [AWS Academy Learner Lab](opcenito/learner-lab-uputa.md)
+- [AWS Academy Learner Lab – Pregled i pristup](opcenito/learner-lab-pregled-i-pristup.md)
+- [AWS Academy Learner Lab – Korištenje i tehničke napomene](opcenito/learner-lab-koristenje-i-tehnicke-napomene.md)
 
 
 ---
