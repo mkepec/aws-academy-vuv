@@ -13,8 +13,8 @@ Ovdje se nalaze tehničke upute podijeljene prema kategorijama AWS servisa.
 
 ## 🖥️ Compute
 
-- [Pokretanje EC2 instance u Learner Lab-u](compute/ec2-postavljanje-studentski-lab/ec2-vodic.md)
-- [Povezivanje na EC2 instancu putem PuTTY-a](compute/ec2-postavljanje-studentski-lab/putty-povezivanje.md)
+- [Pokretanje EC2 instance u AWS Academy Learner Labu](compute/ec2-pokretanje.md)
+- [Spajanje na EC2 instancu putem SSH-a](compute/ec2-spajanje.md)
 
 ---
 
