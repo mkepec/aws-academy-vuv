@@ -2,7 +2,7 @@
 AWS Academy Learner Lab pruža dugotrajno testno okruženje za istraživanje AWS usluga. Vaš nastavnik vam može dodijeliti određeni zadatak, ili možete raditi na vlastitom projektu.
 
 ## Uvod  
-Ovaj vodič pruža upute za korištenje AWS Academy Learner Lab okruženja. Obuhvaća postavljanje i prijavu na AWS Academy račun, pristup AWS Academy Learner Labu te korištenje samog laboratorija.
+Ovaj vodič pruža upute za korištenje AWS Academy Learner Lab okruženja. Obuhvaća postavljanje i prijavu na AWS Academy račun, pristup AWS Academy Learner Labu te korištenje samog laboratorija. 
 
 ---
 
@@ -47,3 +47,5 @@ Ovaj vodič pruža upute za korištenje AWS Academy Learner Lab okruženja. Obuh
 7. Kada završite sa sesijom, odaberite **End Lab**.  
    Svi pokrenuti **Amazon EC2** instance bit će zaustavljene. Ako se vratite i ponovno pokrenete laboratorij, zaustavljene EC2 instance bit će ponovno pokrenute, a ostali resursi koje ste postavili bit će i dalje dostupni.  
    **Važno:** Ako ste stvorili i pokrenuli druge AWS resurse poput **NAT gatewaya** ili **Amazon RDS** baze podataka, ti će resursi nastaviti s radom u pozadini i uzrokovati troškove, čak i izvan vremena vaše laboratorijske sesije.
+
+
