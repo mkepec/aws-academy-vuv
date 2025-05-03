@@ -1,4 +1,4 @@
-# AWS Academy Learner Lab
+# AWS Academy Learner Lab – Pregled i pristup
 AWS Academy Learner Lab pruža dugotrajno testno okruženje za istraživanje AWS usluga. Vaš nastavnik vam može dodijeliti određeni zadatak, ili možete raditi na vlastitom projektu.
 
 ## Uvod  
