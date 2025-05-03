@@ -1,4 +1,4 @@
-# Upute: Korištenje AWS Academy Learner Laba
+# Korištenje AWS Academy Learner Laba
 
 ## Opis
 
