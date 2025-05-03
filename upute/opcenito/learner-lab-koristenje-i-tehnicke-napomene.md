@@ -1,4 +1,4 @@
-# Korištenje AWS Academy Learner Laba
+# AWS Academy Learner Lab – Korištenje i tehničke napomene
 
 ## Opis
 
