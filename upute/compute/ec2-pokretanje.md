@@ -1,90 +1,74 @@
-# Laboratorijska vježba: Pokretanje osnovne EC2 instance u AWS Academy Learner Labu
+# Upute: Pokretanje EC2 instance u AWS Academy Learner Labu
 
-## Pregled laboratorijske vježbe
+## Opis
 
-Ova vježba vodi studente kroz proces pokretanja osnovne EC2 (Elastic Compute Cloud) instance u AWS Academy Learner Lab okruženju. Kreirana instanca može se koristiti za buduće vježbe poput instalacije softvera, testiranja mrežnih pravila i udaljenog pristupa putem SSH-a.
+Ove upute služe kao praktičan vodič za studente i nastavnike Veleučilišta koji koriste **AWS Academy Learner Lab** za pokretanje vlastitih EC2 instanci. Instanca se koristi kao virtualni poslužitelj u oblaku te može služiti kao zamjena za lokalne virtualne strojeve u laboratorijskim vježbama ili edukacijskim projektima.
 
-> **Napomena:** U ovoj vježbi instanca će biti pokrenuta bez dodatnih instalacija (bez User Data skripte). Cilj je pokrenuti „čistu“ virtualnu mašinu s Amazon Linux operativnim sustavom.
+> **Napomena:** Ova instanca pokreće se bez dodatnih konfiguracija ili softverskih instalacija. Cilj je imati čistu, aktivnu instancu spremnu za daljnji rad.
 
-### Ciljevi
+## Pristup AWS konzoli
 
-Nakon ove vježbe moći ćete:
+Prije početka slijedite upute iz [uputa za AWS Academy Learner Lab](./opcenito/learner-lab-uputa.md) kako biste pristupili AWS konzoli s privremenim računom.
 
-* Pokrenuti EC2 instancu putem AWS konzole
-* Odabrati Amazon Machine Image (AMI) i vrstu instance
-* Konfigurirati sigurnosnu grupu s osnovnim pravilima pristupa
-* Provjeriti status pokrenute instance
+> **Regija:** Preporučena regija je **N. Virginia (us-east-1)** ako nije unaprijed zadana.
 
-### Trajanje: \~30 minuta
+## Koraci za pokretanje EC2 instance
 
----
+### 1. Otvorite EC2 servis
 
-## Priprema
+* U AWS konzoli kliknite **Services** i zatim **EC2**.
 
-Prije početka, provjerite jeste li uspješno pristupili AWS konzoli putem AWS Academy Learner Laba. Ako niste, slijedite upute u vodiču **AWS Academy Learner Lab Vodič**.
+### 2. Pokrenite instancu
 
-> **Preporučena regija:** N. Virginia (us-east-1) – ako nije već unaprijed postavljena, odaberite je ručno u gornjem desnom kutu AWS konzole.
+* Kliknite **Launch instance**.
 
----
+### 3. Osnovne postavke
 
-## Zadatak 1: Pokretanje EC2 instance
+* **Name**: Unesite ime instance (npr. `MojaEC2Instanca`).
+* **AMI**: Odaberite **Amazon Linux 2023 AMI (x86\_64)**.
+* **Instance type**: Ostavite zadani `t2.micro`.
 
-### Koraci
+### 4. Ključ za pristup
 
-1. U AWS konzoli kliknite **Services**, zatim pod **Compute** odaberite **EC2**.
-2. Kliknite **Launch instance**.
-3. U polju **Name and tags** unesite ime instance, npr. `MojaEC2Instanca`.
-4. Pod **Application and OS Images (AMI)**:
+* Pod **Key pair (login)** odaberite postojeći ključ ili kreirajte novi (npr. `student-key`).
+* Preuzmite `.pem` (za Mac/Linux) ili `.ppk` (za Windows PuTTY) datoteku i pohranite je sigurno.
 
-   * Odaberite **Amazon Linux 2023 AMI (x86\_64)** – Free tier eligible.
-5. Pod **Instance type**:
+### 5. Mrežne postavke
 
-   * Ostavite zadani tip `t2.micro` (besplatni sloj – Free tier).
-6. U sekciji **Key pair (login)**:
+* Kliknite **Edit** pored **Network settings**.
+* Ostavite zadani VPC i subnet.
+* Provjerite da je **Auto-assign public IP** omogućeno.
+* U dijelu **Firewall (security group)**:
 
-   * Odaberite postojeći key pair ako je već kreiran, ili kliknite **Create new key pair**.
-   * Unesite naziv (npr. `student-key`) i spremite `.pem` ili `.ppk` datoteku na sigurno mjesto.
-7. Kliknite **Edit** pod **Network settings**:
+  * Odaberite **Create security group**.
+  * Dodajte pravilo za SSH:
 
-   * Ostavite zadane postavke za VPC i subnet.
-   * Osigurajte da je **Auto-assign public IP** postavljeno na **Enable**.
-8. Pod **Firewall (security group)**:
+    * **Type**: SSH
+    * **Port range**: 22
+    * **Source**: Anywhere (0.0.0.0/0)
 
-   * Odaberite **Create security group**.
-   * Unesite naziv grupe (npr. `SSH-pristup`) i opis.
-   * Uklonite postojeće pravilo i dodajte novo:
+> **Napomena:** Pravilo pristupa iz bilo koje mreže koristi se samo u edukacijske svrhe.
 
-     * **Type:** SSH
-     * **Protocol:** TCP
-     * **Port Range:** 22
-     * **Source:** Anywhere (0.0.0.0/0)
+### 6. Pohrana
 
-> **Upozorenje:** Pravilo pristupa s bilo koje adrese koristi se samo u edukativne svrhe. U stvarnim okruženjima preporuča se ograničiti pristup na određene IP adrese.
+* Ostavite zadani volumen (8 GiB).
 
-9. U sekciji **Configure storage** ostavite zadane vrijednosti (8 GiB root volumen).
-10. Kliknite **Launch instance**.
-11. Nakon prikaza poruke o uspješnom pokretanju, kliknite **View all instances**.
+### 7. Pokrenite instancu
 
----
+* Kliknite **Launch instance**.
+* Nakon pokretanja, kliknite **View all instances**.
 
-## Zadatak 2: Provjera statusa instance
+## Provjera statusa
 
-1. Na popisu instanci pronađite instancu s nazivom koji ste unijeli.
-2. Provjerite da je **Instance state** označen kao `Running`.
-3. Provjerite da su **Status checks** prošli oba testa (`2/2 checks passed`).
-4. Zabilježite **Public IPv4 address** – trebat će vam za povezivanje u sljedećoj vježbi.
+* Provjerite da je instanca u stanju `Running`.
+* U stupcu **Status checks** mora pisati `2/2 checks passed`.
+* Zabilježite **Public IPv4 address** – trebat će vam za povezivanje.
 
-> **Savjet:** Klikom na naziv instance otvorit će se detaljni prikaz s informacijama o instanci, sigurnosnim postavkama, mreži i dodijeljenim IP adresama.
+## Završetak rada
+
+* Ako ne nastavljate odmah s radom, preporučuje se odabrati **Instance state > Stop instance**.
+* Nakon završetka rada u konzoli, ne zaboravite kliknuti **End Lab** u AWS Academy sučelju kako biste zaustavili rad resursa i sačuvali budžet.
 
 ---
 
-## Završetak vježbe
-
-Čestitamo! Uspješno ste pokrenuli EC2 instancu u AWS okruženju.
-
-U sljedećoj vježbi naučit ćete kako se povezati na instancu koristeći SSH alat s vašeg računala.
-
-Ne zaboravite:
-
-* Ako ne planirate odmah nastaviti rad, možete kliknuti **Instance state > Stop instance**.
-* Kada završite s radom u Learner Labu, odaberite **End Lab** kako biste zaustavili sve resurse i spriječili potrošnju budž
+Ove upute su osmišljene za brzu orijentaciju i početak rada s EC2 servisom. Za detaljnije laboratorijske vježbe koristit će se strukturirani predložak s ciljevima, zadacima i evaluacijom.
